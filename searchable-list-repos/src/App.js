@@ -3,6 +3,7 @@ import { useEffect , useState, useCallback } from "react";
 import query from "./Query.js";
 import RepoInfo from "./RepoInfo";
 import SearchBox from "./SearchBox";
+import NavButtons from "./NavButtons";
 
 function App() {
 
@@ -74,8 +75,17 @@ useEffect(() => {
           setQueryString(myString);
         }}
       />
-      {
-        repoList && (
+      <NavButtons 
+        start={startCursor} 
+        end={endCursor} 
+        next={hasNextPage} 
+        previous={hasPreviousPage} 
+        onPage={(myKeyword, myString) => {
+          setPaginationKeyword(myKeyword);
+          setPaginationString(myString);
+        }}
+      />
+      {repoList && (
           <ul className="list-group list-group-flash">
             {
               repoList.map((repo) => (
