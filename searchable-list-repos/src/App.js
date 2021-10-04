@@ -7,6 +7,9 @@ function App() {
 
 let [userName, setUserName] = useState('');
 let [repoList, setRepoList] = useState(null);
+let [pageCount, setPageCount] = useState("slides");
+let [queryString, setQueryString] = useState("slides");
+let [totalCount, setTotalCount] = useState("slides");
 
 const fetchData = useCallback( () => {
   fetch(github.baseURL, {
