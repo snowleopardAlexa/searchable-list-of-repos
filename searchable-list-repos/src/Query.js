@@ -3,8 +3,10 @@ const githubQuery = {
      {
          viewer {
              name
-             repositories(first:15) {
-                 nodes {
+         }
+         search(query: "user:snowleopardAlexa sort:updated-desc", type: REPOSITORY, last:10) {
+             nodes {
+                 ... on Repository {
                      name
                      description
                      id

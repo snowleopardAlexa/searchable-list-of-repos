@@ -1,6 +1,7 @@
 import github from "./db.js";
 import { useEffect , useState, useCallback } from "react";
 import query from "./Query.js";
+import RepoInfo from "./RepoInfo";
 
 function App() {
 
@@ -16,8 +17,9 @@ const fetchData = useCallback( () => {
    .then(response => response.json())
    .then( (data) => {
      const viewer = data.data.viewer;
+     const repos = data.data.search.nodes;
      setUserName(viewer.name);
-     setRepoList(viewer.repositories.nodes);
+     setRepoList(repos);
  })
    .catch((err) => {
     console.log(err);
@@ -41,12 +43,7 @@ useEffect(() => {
           <ul className="list-group list-group-flash">
             {
               repoList.map((repo) => (
-                <li className="list-group-item" key={repo.div.toString()}>
-                  <a className="h5 mb-0 text-decoration-none" href={repo.url}>
-                      {repo.name}
-                  </a>
-                  <p className="small">{repo.description}</p>
-                </li>
+                <RepoInfo key={repo.id} repo={repo} />
               ))}
           </ul>
         )}
