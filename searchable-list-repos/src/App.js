@@ -9,25 +9,29 @@ let [userName, setUserName] = useState('');
 let [repoList, setRepoList] = useState(null);
 let [pageCount, setPageCount] = useState("slides");
 let [queryString, setQueryString] = useState("slides");
-let [totalCount, setTotalCount] = useState("slides");
+let [totalCount, setTotalCount] = useState(null);
 
 const fetchData = useCallback( () => {
+   const queryText =  JSON.stringify(query(pageCount, queryString))
+
   fetch(github.baseURL, {
     method: "POST",
     headers: github.headers,
-    body: JSON.stringify(query),
+    body: queryText,
   })
    .then(response => response.json())
    .then( (data) => {
      const viewer = data.data.viewer;
      const repos = data.data.search.nodes;
+     const total = data.data.search.repositoryCount;
      setUserName(viewer.name);
      setRepoList(repos);
+     setTotalCount(total);
  })
    .catch((err) => {
     console.log(err);
  });
-}, []);
+}, [pageCount, queryString]);
 
 useEffect(() => {
   fetchData();
@@ -40,7 +44,9 @@ useEffect(() => {
          Repos
       </h1>
       <p>Hey there {userName}</p>
-
+      <p>
+        <b>Search for:</b> {queryString} | <b>Items per page:</b> {pageCount} | <b>Total results:</b> {totalCount} | 
+      </p>
       {
         repoList && (
           <ul className="list-group list-group-flash">

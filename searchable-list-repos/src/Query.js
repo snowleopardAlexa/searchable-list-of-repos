@@ -1,11 +1,15 @@
-const githubQuery = {
+const githubQuery = (pageCount, queryString) => {
+    return {
+
+    }
     query: `
      {
          viewer {
              name
          }
-         search(query: "user:snowleopardAlexa sort:updated-desc", type: REPOSITORY, last:10) {
-             nodes {
+         search(query: "${queryString}user:snowleopardAlexa sort:updated-desc", type: REPOSITORY, last: ${pageCount}) {
+            repositoryCount 
+            nodes {
                  ... on Repository {
                      name
                      description
