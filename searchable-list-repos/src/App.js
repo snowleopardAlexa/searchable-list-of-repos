@@ -5,6 +5,7 @@ import query from "./Query.js";
 function App() {
 
 let [userName, setUserName] = useState('');
+let [repoList, setRepoList] = useState(null);
 
 const fetchData = useCallback( () => {
   fetch(github.baseURL, {
@@ -14,8 +15,9 @@ const fetchData = useCallback( () => {
   })
    .then(response => response.json())
    .then( (data) => {
-     setUserName(data.data.viewer.name)
-   console.log(data);
+     const viewer = data.data.viewer;
+     setUserName(viewer.name);
+     setRepoList(viewer.repositories.nodes);
  })
    .catch((err) => {
     console.log(err);
@@ -33,6 +35,21 @@ useEffect(() => {
          Repos
       </h1>
       <p>Hey there {userName}</p>
+
+      {
+        repoList && (
+          <ul className="list-group list-group-flash">
+            {
+              repoList.map((repo) => (
+                <li className="list-group-item" key={repo.div.toString()}>
+                  <a className="h5 mb-0 text-decoration-none" href={repo.url}>
+                      {repo.name}
+                  </a>
+                  <p className="small">{repo.description}</p>
+                </li>
+              ))}
+          </ul>
+        )}
     </div>
   );
 }
