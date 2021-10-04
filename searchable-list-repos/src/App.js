@@ -2,6 +2,7 @@ import github from "./db.js";
 import { useEffect , useState, useCallback } from "react";
 import query from "./Query.js";
 import RepoInfo from "./RepoInfo";
+import SearchBox from "./SearchBox";
 
 function App() {
 
@@ -44,9 +45,17 @@ useEffect(() => {
          Repos
       </h1>
       <p>Hey there {userName}</p>
-      <p>
-        <b>Search for:</b> {queryString} | <b>Items per page:</b> {pageCount} | <b>Total results:</b> {totalCount} 
-      </p>
+      <SearchBox 
+        totalCount={totalCount}
+        pageCount={pageCount}
+        queryString={queryString}
+        onTotalChange={(myNumber) => {
+          setPageCount(myNumber);
+        }}
+        onQueryChange={(myString) => {
+          setQueryString(myString);
+        }}
+      />
       {
         repoList && (
           <ul className="list-group list-group-flash">
