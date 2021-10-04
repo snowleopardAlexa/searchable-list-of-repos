@@ -42,7 +42,7 @@ const RepoInfo = ({ repo }) => {
                 </div>
             <div className="text-nonwrap ms-3">
               {/* ? fixes an error with calling a license */}  
-             {repo.licenseInfo?.spdxId}   
+              {license} 
 
              {/* conditional classes */}
              <span className={
