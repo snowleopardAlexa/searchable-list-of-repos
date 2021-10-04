@@ -74,17 +74,7 @@ useEffect(() => {
         onQueryChange={(myString) => {
           setQueryString(myString);
         }}
-      />
-      <NavButtons 
-        start={startCursor} 
-        end={endCursor} 
-        next={hasNextPage} 
-        previous={hasPreviousPage} 
-        onPage={(myKeyword, myString) => {
-          setPaginationKeyword(myKeyword);
-          setPaginationString(myString);
-        }}
-      />
+      /> 
       {repoList && (
           <ul className="list-group list-group-flash">
             {
@@ -93,6 +83,18 @@ useEffect(() => {
               ))}
           </ul>
         )}
+       
+       {/* pagination btn */}
+       <NavButtons 
+        start={startCursor} 
+        end={endCursor} 
+        next={hasNextPage} 
+        previous={hasPreviousPage} 
+        onPage={(myKeyword, myString) => {
+          setPaginationKeyword(myKeyword);
+          setPaginationString(myString);
+        }}
+       />  
     </div>
   );
 }
