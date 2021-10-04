@@ -1,4 +1,36 @@
-const RepoInfo = ({repo}) => {
+const RepoInfo = ({ repo }) => {
+
+    let license;
+
+    switch (repo.licenseInfo?.spdxId) {
+        case undefined:
+            license = (
+                <span 
+                   className="px-1 py-0 ms-1 d-inline-block btn btn-sm btn-danger" 
+                   style={{ fontSize: ".6em"}}>
+                    NO LICENSE
+                </span>
+            );
+            break;
+            case "NOASSERTION":
+                license = (
+                    <span 
+                      className="px-1 py-0 ms-1 d-inline-block btn btn-sm btn-danger"
+                      style={{ fontSize: ".6em"}}>
+                        {repo.licenseInfo.spdxId}
+                    </span>
+                );
+                break;
+                default:
+                    license = (
+                        <span 
+                          className="px-1 py-0 ms-1 d-inline-block btn btn-sm btn-danger" 
+                          style={{ fontSize: ".6em"}}>
+                            {repo.licenseInfo.spdxId}
+                        </span>
+                    );  
+                  }
+
     return (
         <li className="list-group-item" key={repo.toString()}>
             <div className="d-flex justify-content-between align-items-center">
@@ -8,8 +40,12 @@ const RepoInfo = ({repo}) => {
                   </a>
                   <p className="small">{repo.description}</p>
                 </div>
-            {/* conditional classes */}
-            <span className={
+            <div className="text-nonwrap ms-3">
+              {/* ? fixes an error with calling a license */}  
+             {repo.licenseInfo?.spdxId}   
+
+             {/* conditional classes */}
+             <span className={
                "px-1 py-0 ms-1 d-inline-block btn btn-sm " + 
                (
                    repo.viewerSubscription === "SUBSCRIBED" 
@@ -20,7 +56,7 @@ const RepoInfo = ({repo}) => {
              style={{ fontSize: ".6em" }}>
                {repo.viewerSubscription}
             </span>
-
+            </div>
             </div>
         </li>
     );
