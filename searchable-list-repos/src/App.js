@@ -7,8 +7,8 @@ function App() {
 
 let [userName, setUserName] = useState('');
 let [repoList, setRepoList] = useState(null);
-let [pageCount, setPageCount] = useState("slides");
-let [queryString, setQueryString] = useState("slides");
+let [pageCount, setPageCount] = useState(10);
+let [queryString, setQueryString] = useState("form");
 let [totalCount, setTotalCount] = useState(null);
 
 const fetchData = useCallback( () => {
@@ -45,7 +45,7 @@ useEffect(() => {
       </h1>
       <p>Hey there {userName}</p>
       <p>
-        <b>Search for:</b> {queryString} | <b>Items per page:</b> {pageCount} | <b>Total results:</b> {totalCount} | 
+        <b>Search for:</b> {queryString} | <b>Items per page:</b> {pageCount} | <b>Total results:</b> {totalCount} 
       </p>
       {
         repoList && (
