@@ -8,8 +8,16 @@ const RepoInfo = ({repo}) => {
                   </a>
                   <p className="small">{repo.description}</p>
                 </div>
-
-            <span className="px-1 py-1 ms-1 d-inline-block btn btn-sm">
+            {/* conditional classes */}
+            <span className={
+               "px-1 py-0 ms-1 d-inline-block btn btn-sm " + 
+               (
+                   repo.viewerSubscription === "SUBSCRIBED" 
+                   ? "btn-success" 
+                   : "btn-outline-secondary"
+               )
+            }
+             style={{ fontSize: ".6em" }}>
                {repo.viewerSubscription}
             </span>
 
