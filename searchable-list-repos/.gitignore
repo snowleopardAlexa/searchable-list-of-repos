@@ -21,5 +21,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# ignore files - don't track them
-src/db.js
+
